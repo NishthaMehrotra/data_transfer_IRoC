@@ -1,0 +1,18 @@
+import os
+
+MAVLINK_CONNECTION = "udp:127.0.0.1:14550"
+
+BASE_STATION_IP = "192.168.1.10"
+BASE_STATION_USER = "pi"
+BASE_STATION_DATA_PATH = "/home/pi/drone_data"
+
+SSH_PORT = 22
+
+PING_TIMEOUT = 2
+
+MISSION_DATA_PATH = os.path.expanduser("~/missions")
+
+RSYNC_RETRY_INTERVAL = 5
+
+BASE_API = f"http://{BASE_STATION_IP}:8000"
+API_TIMEOUT = 5
