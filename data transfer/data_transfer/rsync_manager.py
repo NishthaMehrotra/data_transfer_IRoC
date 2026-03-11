@@ -1,4 +1,4 @@
-import subprocess
+from rsync import Rsync
 from .config import BASE_STATION_IP, BASE_STATION_USER, BASE_STATION_DATA_PATH
 
 
@@ -8,16 +8,17 @@ class RsyncManager:
 
         destination = f"{BASE_STATION_USER}@{BASE_STATION_IP}:{BASE_STATION_DATA_PATH}"
 
-        cmd = [
-            "rsync",
-            "-avz",
-            mission_folder,
-            destination
-        ]
-
         try:
-            subprocess.check_call(cmd)
+            rsync = Rsync(
+                source=mission_folder,
+                destination=destination,
+                options=["-avz", "--progress", "--partial"]
+            )
+
+            rsync.run()
+
             return True
 
-        except subprocess.CalledProcessError:
+        except Exception as e:
+            print("Rsync failed:", e)
             return False
